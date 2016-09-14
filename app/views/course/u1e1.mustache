@@ -1,0 +1,428 @@
+{{% BLOCKS }}
+{{< master }}
+
+{{$ content}}
+
+<h2>Herramientas básicas para obtener información de servidores externos</h2>
+
+<p>Vamos a obtener información sobre <a href="http://www.euskalert.net/"><i>www.euskalert.net</i><a>. Este es un servidor de la universidad que se usa con fines educativos.</p>
+
+<h3>Ping</h3>
+<p>
+    Obtener la ip mediante ping:
+</p>
+<pre>
+$ ping www.euskalert.net
+PING www.euskalert.net (193.146.78.12): 56 data bytes
+Request timeout for icmp_seq 0
+Request timeout for icmp_seq 1
+Request timeout for icmp_seq 2
+Request timeout for icmp_seq 3
+^C
+--- www.euskalert.net ping statistics ---
+5 packets transmitted, 0 packets received, 100.0% packet loss
+</pre>
+
+<p>La ip de www.euskalert.net es <b>193.146.78.12</b></p>
+
+<p>Buscar información sobre el dominio:</p>
+<h3>Whois</h3>
+
+<p>Hacemos whois sobre la ip:</p>
+<pre>
+$ whois 193.146.78.12
+
+#
+# ARIN WHOIS data and services are subject to the Terms of Use
+# available at: https://www.arin.net/whois_tou.html
+#
+# If you see inaccuracies in the results, please report at
+# https://www.arin.net/public/whoisinaccuracy/index.xhtml
+#
+
+
+#
+# Query terms are ambiguous.  The query is assumed to be:
+#     "n 193.146.78.12"
+#
+# Use "?" to get help.
+#
+
+#
+# The following results may also be obtained via:
+# https://whois.arin.net/rest/nets;q=193.146.78.12?showDetails=true&showARIN=false&showNonArinTopLevelNet=false&ext=netref2
+#
+
+NetRange:       193.0.0.0 - 193.255.255.255
+CIDR:           193.0.0.0/8
+NetName:        RIPE-CBLK
+NetHandle:      NET-193-0-0-0-1
+Parent:          ()
+NetType:        Allocated to RIPE NCC
+OriginAS:
+Organization:   RIPE Network Coordination Centre (RIPE)
+RegDate:        1992-08-12
+Updated:        2009-03-25
+Comment:        These addresses have been further assigned to users in
+Comment:        the RIPE NCC region. Contact information can be found in
+Comment:        the RIPE database at http://www.ripe.net/whois
+Ref:            https://whois.arin.net/rest/net/NET-193-0-0-0-1
+
+ResourceLink:  https://apps.db.ripe.net/search/query.html
+ResourceLink:  whois.ripe.net
+
+OrgName:        RIPE Network Coordination Centre
+OrgId:          RIPE
+Address:        P.O. Box 10096
+City:           Amsterdam
+StateProv:
+PostalCode:     1001EB
+Country:        NL
+RegDate:
+Updated:        2013-07-29
+Ref:            https://whois.arin.net/rest/org/RIPE
+
+ReferralServer:  whois://whois.ripe.net
+ResourceLink:  https://apps.db.ripe.net/search/query.html
+
+OrgAbuseHandle: ABUSE3850-ARIN
+OrgAbuseName:   Abuse Contact
+OrgAbusePhone:  +31205354444
+OrgAbuseEmail:  abuse@ripe.net
+OrgAbuseRef:    https://whois.arin.net/rest/poc/ABUSE3850-ARIN
+
+OrgTechHandle: RNO29-ARIN
+OrgTechName:   RIPE NCC Operations
+OrgTechPhone:  +31 20 535 4444
+OrgTechEmail:  hostmaster@ripe.net
+OrgTechRef:    https://whois.arin.net/rest/poc/RNO29-ARIN
+
+
+#
+# ARIN WHOIS data and services are subject to the Terms of Use
+# available at: https://www.arin.net/whois_tou.html
+#
+# If you see inaccuracies in the results, please report at
+# https://www.arin.net/public/whoisinaccuracy/index.xhtml
+#
+
+% This is the RIPE Database query service.
+% The objects are in RPSL format.
+%
+% The RIPE Database is subject to Terms and Conditions.
+% See http://www.ripe.net/db/support/db-terms-conditions.pdf
+
+% Note: this output has been filtered.
+%       To receive output for a database update, use the "-B" flag.
+
+% Information related to '193.146.78.0 - 193.146.78.255'
+
+% Abuse contact for '193.146.78.0 - 193.146.78.255' is 'seguridad@rediris.es'
+
+inetnum:        193.146.78.0 - 193.146.78.255
+netname:        MGEP
+descr:          Mondragon Goi Eskola Polteknikoa
+descr:          JM Arizmendiarrieta, S. Coop.
+descr:          Mondragon
+country:        ES
+admin-c:        PA644-RIPE
+tech-c:         JL1370-RIPE
+status:         ASSIGNED PA
+mnt-irt:        IRT-IRIS
+remarks:        mail spam reports: iris@certsi.es
+remarks:        security incidents: iris@certsi.es
+mnt-by:         REDIRIS-NMC
+created:        1970-01-01T00:00:00Z
+last-modified:  2016-08-17T11:00:15Z
+source:         RIPE # Filtered
+
+person:         Jesus Lizarraga
+address:        Mondragon Eskola Politeknikoa
+address:        Loramendi, 4
+address:        E-20500 Mondragon
+address:        SPAIN
+phone:          +34 943794700
+fax-no:         +34 943791536
+nic-hdl:        JL1370-RIPE
+abuse-mailbox:  abuse@rediris.es
+mnt-by:         REDIRIS-NMC
+created:        1970-01-01T00:00:00Z
+last-modified:  2005-06-10T18:32:13Z
+source:         RIPE # Filtered
+
+person:         Pedro Amallobieta
+address:        Mondragon Eskola Politeknikoa
+address:        Loramendi, 4
+address:        E-20500 Mondragon
+address:        SPAIN
+phone:          +34 943794700
+fax-no:         +34 943791536
+nic-hdl:        PA644-RIPE
+abuse-mailbox:  abuse@rediris.es
+mnt-by:         REDIRIS-NMC
+created:        1970-01-01T00:00:00Z
+last-modified:  2005-06-10T18:32:13Z
+source:         RIPE # Filtered
+
+% Information related to '193.144.0.0/14AS766'
+
+route:          193.144.0.0/14
+descr:          RedIRIS Provider Block
+origin:         AS766
+mnt-by:         REDIRIS-NMC
+created:        1970-01-01T00:00:00Z
+last-modified:  2004-07-29T09:48:00Z
+source:         RIPE
+
+% This query was served by the RIPE Database Query Service version 1.87.4 (ANGUS)
+</pre>
+
+<p>Hacemos whois sobre el nombre del domino:</p>
+
+<pre>
+$ whois euskalert.net
+
+Whois Server Version 2.0
+
+Domain names in the .com and .net domains can now be registered
+with many different competing registrars. Go to http://www.internic.net
+for detailed information.
+
+   Domain Name: EUSKALERT.NET
+   Registrar: ACENS TECHNOLOGIES, S.L.U.
+   Sponsoring Registrar IANA ID: 140
+   Whois Server: whois.interdomain.net
+   Referral URL: http://www.interdomain.es
+   Name Server: NS1.MONDRAGON.EDU
+   Name Server: NS2.MONDRAGON.EDU
+   Status: ok https://icann.org/epp#ok
+   Updated Date: 07-oct-2015
+   Creation Date: 31-oct-2006
+   Expiration Date: 31-oct-2016
+
+>>> Last update of whois database: Wed, 14 Sep 2016 19:18:58 GMT <<<
+
+For more information on Whois status codes, please visit https://icann.org/epp
+
+NOTICE: The expiration date displayed in this record is the date the
+registrar's sponsorship of the domain name registration in the registry is
+currently set to expire. This date does not necessarily reflect the expiration
+date of the domain name registrant's agreement with the sponsoring
+registrar.  Users may consult the sponsoring registrar's Whois database to
+view the registrar's reported date of expiration for this registration.
+
+TERMS OF USE: You are not authorized to access or query our Whois
+database through the use of electronic processes that are high-volume and
+automated except as reasonably necessary to register domain names or
+modify existing registrations; the Data in VeriSign Global Registry
+Services' ("VeriSign") Whois database is provided by VeriSign for
+information purposes only, and to assist persons in obtaining information
+about or related to a domain name registration record. VeriSign does not
+guarantee its accuracy. By submitting a Whois query, you agree to abide
+by the following terms of use: You agree that you may use this Data only
+for lawful purposes and that under no circumstances will you use this Data
+to: (1) allow, enable, or otherwise support the transmission of mass
+unsolicited, commercial advertising or solicitations via e-mail, telephone,
+or facsimile; or (2) enable high volume, automated, electronic processes
+that apply to VeriSign (or its computer systems). The compilation,
+repackaging, dissemination or other use of this Data is expressly
+prohibited without the prior written consent of VeriSign. You agree not to
+use electronic processes that are automated and high-volume to access or
+query the Whois database except as reasonably necessary to register
+domain names or modify existing registrations. VeriSign reserves the right
+to restrict your access to the Whois database in its sole discretion to ensure
+operational stability.  VeriSign may restrict or terminate your access to the
+Whois database for failure to abide by these terms of use. VeriSign
+reserves the right to modify these terms at any time.
+
+The Registry database contains ONLY .COM, .NET, .EDU domains and
+Registrars.
+
+Domain Name: euskalert.net
+Registry Domain ID:
+Registrar WHOIS Server: whois.interdomain.net
+Registrar URL: http://www.acens.com/
+Updated Date: 2015-10-07T08:15:23Z
+Creation Date: 2006-10-31T00:56:37Z
+Registrar Registration Expiration Date: 2016-10-31T11:56:37Z
+Registrar: acens Technologies, S.L.U.
+Registrar IANA ID: 140
+Registrar Abuse Contact Email: abuse@acens.com
+Registrar Abuse Contact Phone:+34.911418583
+Domain Status: ok http://www.icann.org/epp#ok
+Registry Registrant ID:
+Registrant Name: Mondragon Goi Eskola Politeknikoa, J.M.A., S.Coop
+Registrant Organization:
+Registrant Street: Loramendi 4
+Registrant City: Arrasate
+Registrant State/Province: Gipuzkoa
+Registrant Postal Code: 20500
+Registrant Country: ES
+Registrant Phone: 943794700
+Registrant Fax:
+Registrant Email: amanterola@eps.mondragon.edu
+Registry Admin ID:
+Admin Name: Mondragon Goi Eskola Politeknikoa, J.M.A., S.Coop
+Admin Organization: Mondragon Goi Eskola Politeknikoa, J.M.A., S.Coop
+Admin Street: Loramendi,4
+Admin City: Arrasate
+Admin State/Province: GIPUZKOA
+Admin Postal Code: 20500
+Admin Country: ES
+Admin Phone: +34.943794700
+Admin Fax:
+Admin Email: sistemak@eps.mondragon.edu
+Registry Tech ID:
+Tech Name: RESPONSABLE DE DNS
+Tech Organization: RESPONSABLE DE DNS
+Tech Street: JULIAN CAMARILLO 6
+Tech City: MADRID
+Tech State/Province: MADRID
+Tech Postal Code: 28013
+Tech Country: ES
+Tech Phone: +34.913752300
+Tech Fax:
+Tech Email: dns_admin@corp.terra.es
+Name Server: ns1.mondragon.edu
+Name Server: ns2.mondragon.edu
+URL of the ICANN WHOIS Data Problem Reporting System: http://wdprs.internic.net/
+>>> Last update of WHOIS database:2015-10-07T08:15:23Z<<<
+For more information on Whois status codes, please visit
+https://www.icann.org/resources/pages/epp-status-codes-2014-06-16-en
+
+acens's WHOIS database is provided by acens Technologies for information
+purposes only, proving information about or related to a domain name
+registration record.
+Acens makes this information available "as is," and does not guarantee
+its accuracy.
+By submitting a WHOIS query, you agree that you will use this data only for
+lawful purposes and that, under no circumstances will you use this data to:
+(1) allow, enable, or otherwise support the transmission of mass unsolicited,
+commercial advertising or solicitations via direct mail, electronic mail, or
+by telephone; or (2) enable high volume, automated, electronic processes that
+apply to acens (or its systems).  The compilation, repackaging,
+dissemination or other use of this data is expressly prohibited without the
+prior written consent of acens.
+acens  reserves the right to modify these terms at any time. By
+submitting this query, you agree to abide by these terms.
+NOTE: THE WHOIS DATABASE IS A CONTACT DATABASE ONLY. LACK OF A DOMAIN RECORD
+</pre>
+
+<p>A partir de esta información obtenemos información del contacto técnico y administrativo:</p>
+<p>
+    <address>
+        Admin Name: Mondragon Goi Eskola Politeknikoa, J.M.A., S.Coop<br>
+        Admin Organization: Mondragon Goi Eskola Politeknikoa, J.M.A., S.Coop<br>
+        Admin Street: Loramendi,4<br>
+        Admin City: Arrasate<br>
+        Admin State/Province: GIPUZKOA<br>
+        Admin Postal Code: 20500<br>
+        Admin Country: ES<br>
+        Admin Phone: +34.943794700<br>
+        Admin Fax:<br>
+        Admin Email: <b>sistemak@eps.mondragon.edu</b><br>
+    </address>
+<p>
+<p>
+    <address>
+        Registry Tech ID:<br>
+        Tech Name: RESPONSABLE DE DNS<br>
+        Tech Organization: RESPONSABLE DE DNS<br>
+        Tech Street: JULIAN CAMARILLO 6<br>
+        Tech City: MADRID<br>
+        Tech State/Province: MADRID<br>
+        Tech Postal Code: 28013<br>
+        Tech Country: ES<br>
+        Tech Phone: +34.913752300<br>
+        Tech Fax:<br>
+        Tech Email: <b>dns_admin@corp.terra.es</b><br>
+    </address>
+</p>
+
+<p>El registro está a nombre de Mondragon Goi Eskola Politeknikoa (www.mondragon.edu/es/eps), también obtenemos dos nombres <b><i>Jesus Lizarraga</i></b> y <b><i>Pedro Amallobieta</i></b> y el mail del registro del dominio <b><i>amanterola@eps.mondragon.edu</i></b>
+<p>Buscamos información en google y en la web de www.mondragon.edu, así podemos obtener los siguientes datos de contacto:</p>
+
+<p>
+    Jesus Maria Lizarraga Durandegui<br>
+    https://es.linkedin.com/in/jlizarraga<br>
+    Número de teléfono: 943794700
+</p>
+
+<p>
+    Pedro M. Amallobieta Gogenola<br>
+    Número de teléfono: 647504032
+</p>
+
+<p>
+    amanterola@eps.mondragon.edu<br>
+    Arantxa Manterola Tena<br>
+    https://twitter.com/iam_amanterola<br>
+    https://plus.google.com/106952462204882516677<br>
+    Número de teléfono: 609419721
+</p>
+
+<p>
+A partir de estos datos podríamos buscar, en www.mondragon.edu, redes sociales y google,
+compañeros de trabajos y/o personas que pudiesen estar relacionadas con www.euskalert.net.
+</p>
+
+<h3>Nmap</h3>
+
+<p>Descargamos e instalamos nmap, en mi caso para OS X: <a href="https://nmap.org/book/inst-macosx.html">https://nmap.org/book/inst-macosx.html</a></p>
+<pre>
+$ nmap -V
+
+Nmap version 7.12 ( https://nmap.org )
+Platform: x86_64-apple-darwin13.4.0
+Compiled with: liblua-5.2.4 openssl-1.0.2g nmap-libpcre-7.6 nmap-libpcap-1.7.3 nmap-libdnet-1.12 ipv6
+Compiled without:
+Available nsock engines: kqueue poll select
+</pre>
+
+<p>Hacemos un scan básico:</p>
+<pre>
+$ nmap www.euskalert.net
+
+Starting Nmap 7.12 ( https://nmap.org ) at 2016-09-14 23:52 CEST
+Nmap scan report for www.euskalert.net (193.146.78.12)
+Host is up (0.063s latency).
+Not shown: 998 filtered ports
+PORT    STATE  SERVICE
+80/tcp  open   http
+443/tcp closed https
+
+Nmap done: 1 IP address (1 host up) scanned in 847.38 seconds
+</pre>
+
+<p>
+    Buscamos información adicional acerca de la versión del servicio que se está ejecutando en cada puerto
+</p>
+<pre>
+$ nmap  -sV www.euskalert.net
+</pre>
+
+<p>Escanear el host sólo para descubrir su sistema operativo</p>
+<pre>
+$ sudo nmap -O scanme.nmap.org
+</pre>
+
+<p>Escaneamos en modo "agresivo"</p>
+<pre>
+$ nmap -A scanme.nmap.org
+</pre>
+
+<p>Buscamos vulnerabilidades en <a href="https://web.nvd.nist.gov/view/vuln/search">https://web.nvd.nist.gov/view/vuln/search</a></p>
+
+
+<h4>Recursos:</h4>
+<ul>
+    <li><a href="http://ping.eu/ns-whois/">http://ping.eu/ns-whois/</a></li>
+    <li><a href="http://whois.domaintools.com/">http://whois.domaintools.com/</a></li>
+    <li><a href="https://nmap.org">https://nmap.org</a></li>
+    <li><a href="http://hacking-etico.com/2013/02/24/nmap-tutorial-descubriendo-el-terreno-de-juego-parte-1/">Uso de nmap 1</a></li>
+    <li><a href="http://hacking-etico.com/2013/03/23/nmap-tutorial-descubriendo-el-terreno-de-juego-parte-2/">Uso de nmap 2</a></li>
+    <li><a href="https://web.nvd.nist.gov/view/vuln/search">https://web.nvd.nist.gov/view/vuln/search</a></li>
+</ul>
+
+{{/ content}}
+{{/ master }}

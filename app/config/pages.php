@@ -17,6 +17,22 @@ return [
         ],
     ],
 
+    'u1e1' => [
+        'es' => [
+            'route' => '/herramientas-basicas-para-obtener-informacion-de-servidores-externos',
+            'view' => 'course/u1e1',
+        ],
+        'en' => [
+            'route' => '/',
+            'view' => 'home',
+        ],
+        'gl' => [
+            'route' => '/',
+            'view' => 'home',
+        ],
+    ],
+
+
     'about' => [
         'es' => [
             'route' => '/about',

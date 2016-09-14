@@ -10,9 +10,14 @@ return [
 
     'metas' => [
         'home' => [
-            'title' => 'ethical hack course',
-            'description' => 'ethical hack course',
-            'keywords' => 'ethical, hack, course',
+            'title' => 'ethical hack',
+            'description' => 'ethical hack',
+            'keywords' => 'ethical, hack',
+        ],
+        'u1e1' => [
+            'title' => 'Herramientas básicas para obtener información de servidores externos - ethical hack',
+            'description' => 'Herramientas básicas para obtener información de servidores externos ',
+            'keywords' => 'Herramientas básicas, ethical, hack',
         ],
         'about' => [
             'title' => 'Español title about',
