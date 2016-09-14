@@ -10,9 +10,9 @@ return [
 
     'metas' => [
         'home' => [
-            'title' => 'Español title home',
-            'description' => 'Español description home',
-            'keywords' => 'español, keywords, home',
+            'title' => 'ethical hack course',
+            'description' => 'ethical hack course',
+            'keywords' => 'ethical, hack, course',
         ],
         'about' => [
             'title' => 'Español title about',
@@ -34,10 +34,10 @@ return [
 
     'menu' => [
         'home' => 'Página principal',
-        'about' => 'Sobre nosotros'
+        'about' => 'About'
     ],
 
-    'about' => 'Sobre nosotros',
+    'about' => 'About',
 
     'cookies' => 'Ley de cookies',
 

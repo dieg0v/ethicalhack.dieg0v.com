@@ -19,15 +19,15 @@ return [
 
     'about' => [
         'es' => [
-            'route' => '/sobre-nosotros',
+            'route' => '/about',
             'view' => 'about',
         ],
         'en' => [
-            'route' => '/about-us',
+            'route' => '/about',
             'view' => 'about',
         ],
         'gl' => [
-            'route' => '/sobre-nos',
+            'route' => '/about',
             'view' => 'about',
         ],
     ],

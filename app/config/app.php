@@ -2,19 +2,19 @@
 
 return [
 
-    'siteurl' => 'http://localhost:8889',
+    'siteurl' => 'ethicalhack.dieg0v.com',
 
-    'author' => 'Author name',
+    'author' => '@dieg0v',
 
-    'sitename' => 'Site Name',
+    'sitename' => 'ethical hack course',
 
-    'app_langs' => ['es','en','gl'],
+    'app_langs' => ['es'],
 
     'default_lang' => 'es',
 
     'admin' => [
         'user' => 'admin',
-        'pass' => '12345'
+        'pass' => '*****'
     ],
 
     'css' => scandir('static/build/css', 1)[0],
@@ -41,9 +41,9 @@ return [
 
     'cookies' => [
 
-        'active' => true,
+        'active' => false,
         'name' => 'cookie_law',
         'days' => '15',
-        'domain' => 'www.localhost.org',
+        'domain' => 'ethicalhack.dieg0v.com',
     ]
 ];
