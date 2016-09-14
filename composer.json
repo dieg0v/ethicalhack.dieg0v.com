@@ -1,0 +1,29 @@
+{
+    "name": "dieg0v/sliminit",
+    "description": "Simple slim app for rapid prototype",
+    "keywords": ["slim", "app"],
+    "homepage": "https://github.com/dieg0v/sliminit",
+    "license": "MIT",
+    "authors": [
+        {
+        "name": "Diego Vilariño",
+        "email": "diego.vilarino@gmail.com",
+        "homepage": "http://www.dieg0v.com",
+        "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "slim/slim": "2.6.2",
+        "illuminate/database": "5.0.27",
+        "dearon/slim-mustache": "0.1.*"
+    },
+    "require-dev": {
+        "codeception/codeception": "~2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/src"
+        }
+    }
+}
