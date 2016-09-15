@@ -11,7 +11,8 @@
     --color-main-medium: color(var(--color-main) tint(50%));
     --color-main-light: color(var(--color-main) tint(85%));
 
-    --color-link: #000;
+    --color-link-hover: #0000FF;
+    --color-link: color(var(--color-link-hover) tint(30%));
 
     /* Custom media */
     @custom-media --mobile (min-width: 320px);

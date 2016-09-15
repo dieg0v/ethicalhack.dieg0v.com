@@ -5,7 +5,7 @@
 
 <h2>Herramientas básicas para obtener información de servidores externos</h2>
 
-<p>Vamos a obtener información sobre <a href="http://www.euskalert.net/"><i>www.euskalert.net</i><a>. Este es un servidor de la universidad que se usa con fines educativos.</p>
+<p>Vamos a obtener información sobre <a href="http://www.euskalert.net/"><i>www.euskalert.net</i></a>. Este es un servidor de la universidad que se usa con fines educativos.</p>
 
 <h3>Ping</h3>
 <p>
@@ -395,26 +395,25 @@ Nmap done: 1 IP address (1 host up) scanned in 847.38 seconds
 </pre>
 
 <p>
-    Buscamos información adicional acerca de la versión del servicio que se está ejecutando en cada puerto
+    Buscamos información adicional acerca de la versión del servicio que se está ejecutando en cada puerto:
 </p>
 <pre>
 $ nmap  -sV www.euskalert.net
 </pre>
 
-<p>Escanear el host sólo para descubrir su sistema operativo</p>
+<p>Escanear el host sólo para descubrir su sistema operativo:</p>
 <pre>
-$ sudo nmap -O scanme.nmap.org
+$ sudo nmap -O www.euskalert.net
 </pre>
 
-<p>Escaneamos en modo "agresivo"</p>
+<p>Escaneamos en modo "agresivo":</p>
 <pre>
-$ nmap -A scanme.nmap.org
+$ nmap -A www.euskalert.net
 </pre>
 
 <p>Buscamos vulnerabilidades en <a href="https://web.nvd.nist.gov/view/vuln/search">https://web.nvd.nist.gov/view/vuln/search</a></p>
 
-
-<h4>Recursos:</h4>
+<h3>Recursos:</h3>
 <ul>
     <li><a href="http://ping.eu/ns-whois/">http://ping.eu/ns-whois/</a></li>
     <li><a href="http://whois.domaintools.com/">http://whois.domaintools.com/</a></li>

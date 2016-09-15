@@ -14,20 +14,35 @@ return [
             'description' => 'ethical hack',
             'keywords' => 'ethical, hack',
         ],
-        'u1e1' => [
-            'title' => 'Herramientas básicas para obtener información de servidores externos - ethical hack',
-            'description' => 'Herramientas básicas para obtener información de servidores externos ',
-            'keywords' => 'Herramientas básicas, ethical, hack',
-        ],
         'about' => [
             'title' => 'Español title about',
             'description' => 'Español description about',
             'keywords' => 'español, keywords, about',
         ],
         'cookies' => [
-            'title' => 'Español title cookies',
-            'description' => 'Español description cookies',
-            'keywords' => 'español, keywords, cookies',
+            'title' => 'Ley de cookies - ethical hack',
+            'description' => 'Ley de cookies',
+            'keywords' => 'cookies, ley, ethical, hack',
+        ],
+        // ==================================================================
+        //
+        // Course
+        //
+        // ------------------------------------------------------------------
+        'u1t1' => [
+            'title' => 'Herramientas básicas para obtener información de servidores externos - ethical hack',
+            'description' => 'Herramientas básicas para obtener información de servidores externos',
+            'keywords' => 'Herramientas básicas, ethical, hack',
+        ],
+        'u1t2' => [
+            'title' => 'Recursos en internet - ethical hack',
+            'description' => 'Recursos en internet',
+            'keywords' => 'recursos, internet, ethical, hack',
+        ],
+        'u1t3' => [
+            'title' => 'Pretty Good Privacy (PGP) - Criptografía - ethical hack',
+            'description' => 'Pretty Good Privacy (PGP) - Criptografía',
+            'keywords' => 'pretty good privacy, pgp, criptografía, ethical, hack',
         ],
     ],
 

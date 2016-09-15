@@ -17,18 +17,24 @@ return [
         ],
     ],
 
-    'u1e1' => [
+    'u1t1' => [
         'es' => [
             'route' => '/herramientas-basicas-para-obtener-informacion-de-servidores-externos',
-            'view' => 'course/u1e1',
+            'view' => 'course/u1t1',
         ],
-        'en' => [
-            'route' => '/',
-            'view' => 'home',
+    ],
+
+    'u1t2' => [
+        'es' => [
+            'route' => '/recursos-en-internet',
+            'view' => 'course/u1t2',
         ],
-        'gl' => [
-            'route' => '/',
-            'view' => 'home',
+    ],
+
+    'u1t3' => [
+        'es' => [
+            'route' => '/pretty-good-privacy-pgp-criptografia',
+            'view' => 'course/u1t3',
         ],
     ],
 
