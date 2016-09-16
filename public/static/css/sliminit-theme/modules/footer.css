@@ -5,7 +5,7 @@
         @mixin wrapper;
 
         p {
-            padding-top: 1em;
+            padding-top: 1.2em;
             padding-bottom: 6em;
             font-size: 0.875em;
             border-top: 1px solid var(--color-main-light);

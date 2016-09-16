@@ -379,7 +379,8 @@ Compiled without:
 Available nsock engines: kqueue poll select
 </pre>
 
-<p>Hacemos un scan básico:</p>
+<p>Hacemos un scan básico de puertos:</p>
+
 <pre>
 $ nmap www.euskalert.net
 
@@ -398,20 +399,93 @@ Nmap done: 1 IP address (1 host up) scanned in 847.38 seconds
     Buscamos información adicional acerca de la versión del servicio que se está ejecutando en cada puerto:
 </p>
 <pre>
-$ nmap  -sV www.euskalert.net
+$ nmap -sV 193.146.78.12 -p 80,433
+
+Starting Nmap 7.12 ( https://nmap.org ) at 2016-09-16 10:25 CEST
+Nmap scan report for 193.146.78.12
+Host is up (0.049s latency).
+PORT    STATE    SERVICE VERSION
+80/tcp  open     http    Apache httpd 2.4.7 ((Ubuntu))
+433/tcp filtered unknown
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 13.81 seconds
 </pre>
 
-<p>Escanear el host sólo para descubrir su sistema operativo:</p>
+<p>Sabemos que hay un Apache corriendo en el puerto 80, conseguimos visualizar la web:</p>
+
+<p><img src="/static/build/media/img/u1t1/web.png" alt="web"></p>
+
+<p>
+    A partir del código fuente de la web sabemos que el sitio web usa un <b>Wordpress 4.6.1</b>,
+    <b>JQMIGRATE 1.4.1</b>, lo que parece un tema para wordpress <b>"Responsive - 1.9.7.4"</b> y un plugin para SEO <b>"Yoast WordPress SEO plugin v1.7.4"</b>.
+</p>
+
+<p><img src="/static/build/media/img/u1t1/jqmigrate.png" alt="jqmigrate"></p>
+<p><img src="/static/build/media/img/u1t1/wordpress.png" alt="wordpress"></p>
+<p><img src="/static/build/media/img/u1t1/seo.png" alt="seo"></p>
+
+<p>
+    Viendo la respuesta Http confirmamos que es un <b>Apache/2.4.7 (Ubuntu)</b> y sabemos que además usa la siguiente versión de php <b>PHP/5.5.9-1ubuntu4.19</b>:
+</p>
+
+<p><img src="/static/build/media/img/u1t1/response.png" alt="response"></p>
+
+<p>Buscamos información sobre el sistema operativo:</p>
 <pre>
-$ sudo nmap -O www.euskalert.net
+$sudo nmap -O 193.146.78.12
+Password:
+
+Starting Nmap 7.12 ( https://nmap.org ) at 2016-09-16 11:23 CEST
+Nmap scan report for 193.146.78.12
+Host is up (0.049s latency).
+Not shown: 998 filtered ports
+PORT    STATE  SERVICE
+80/tcp  open   http
+443/tcp closed https
+Device type: general purpose|broadband router|firewall
+Running (JUST GUESSING): Linux 3.X|4.X|2.6.X (94%), WatchGuard Fireware 11.X (86%), IPFire 2.X (86%)
+OS CPE: cpe:/o:linux:linux_kernel:3.8 cpe:/o:linux:linux_kernel:4 cpe:/o:linux:linux_kernel:2.6.32 cpe:/o:watchguard:fireware:11.8 cpe:/o:ipfire:ipfire:2.11
+Aggressive OS guesses: Linux 3.8 (94%), Linux 3.11 - 4.1 (92%), Linux 3.13 (89%), Linux 3.0 (88%), Linux 2.6.32 (88%), Linux 4.0 (87%), Linux 3.2 - 3.8 (86%), WatchGuard Fireware 11.8 (86%), IPFire 2.11 firewall (Linux 2.6.32) (86%), Linux 3.12 (85%)
+No exact OS matches for host (test conditions non-ideal).
+
+OS detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 1358.44 seconds
 </pre>
 
 <p>Escaneamos en modo "agresivo":</p>
+
 <pre>
-$ nmap -A www.euskalert.net
+$nmap -A 193.146.78.12
+
+Starting Nmap 7.12 ( https://nmap.org ) at 2016-09-16 11:48 CEST
+Nmap scan report for 193.146.78.12
+Host is up (0.055s latency).
+Not shown: 998 filtered ports
+PORT    STATE  SERVICE    VERSION
+80/tcp  open   tcpwrapped
+443/tcp closed https
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 847.30 seconds
 </pre>
 
-<p>Buscamos vulnerabilidades en <a href="https://web.nvd.nist.gov/view/vuln/search">https://web.nvd.nist.gov/view/vuln/search</a></p>
+<p>
+    No conseguimos mucha información, no sabemos si el servidor pueda estar filtrandonos o con demasiada carga como para
+    devolvernos información, buscamos en la web de Ubuntu y vemos que la versión que tiene <b>PHP/5.5.9-1ubuntu4.19</b> podría ser la <a href="http://packages.ubuntu.com/trusty/php5">Trusty (14.04LTS)</a>
+</p>
+
+<p>Buscamos vulnerabilidades en <a href="https://web.nvd.nist.gov/view/vuln/search">https://web.nvd.nist.gov/view/vuln/search</a> y encontramos varias que podríamos explotar:</p>
+
+<p>
+    <ul>
+        <li>* Apache 2.4.7 <a href="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2012-2378">CVE-2012-2378</a></li>
+        <li>* WordPress 4.6.1 no encontramos vulnerabilidades conocidas, vemos que es una actualzación de seguridad que parchea fallos en la versión 4.6 .</li>
+        <li>* Para Yoast WordPress SEO encontramos varias vulnerabilidades <a href="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2012-6692">CVE-2012-6692</a>, <a href="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2015-2293">CVE-2015-2293</a> y <a href="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2015-2292">CVE-2015-2292</a> auque estas dos últimas parece que solo funcionarían para versiones anteriores a la 1.7.4</li>
+        <li>* Hacemos una busqueda para la versión de Trusty de Ubuntu pero <a href="https://web.nvd.nist.gov/view/vuln/search-results?query=Trusty&search_type=all&cves=on">no encontramos nada</a></li>
+        <li>* Para la versión 5.5.9 de PHP encontramos una <a href="http://www.cvedetails.com/vulnerability-list/vendor_id-74/product_id-128/version_id-164957/PHP-PHP-5.5.9.html">lista de vulnerabilidades</a> que podriamos revisar.
+    </ul>
+</p>
 
 <h3>Recursos:</h3>
 <ul>

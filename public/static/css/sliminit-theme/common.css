@@ -19,6 +19,16 @@ h3 {
 
 .content {
     @mixin wrapper;
+    max-width: 800px;
+}
+
+li{
+    max-width: 800px;
+}
+
+img {
+    border:1px solid #021a40;
+   width: 800px;
 }
 
 .list {
