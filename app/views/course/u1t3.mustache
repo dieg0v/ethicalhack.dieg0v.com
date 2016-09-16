@@ -112,24 +112,38 @@ HdVEXFoidoHhJcwoL6LQr9xKa1Y=
 <h3>Encriptar un archivo</h3>
 
 <p>
+    Para esta prueba mi amigo "Chini Mooc" me manda su clave pública, una vez la tengo la puedo importar:
+</p>
+
+<p><img src="/static/build/media/img/u1t3/import.png" alt="import"></p>
+
+
+<p>
    Ahora vamos a probar encriptar el archivo:
 </p>
 
 <p><img src="/static/build/media/img/u1t3/crypt-file-1.png" alt="crypt-file1-gpg-suite"></p>
 
 <p>
-    Seleccionamos un destinatario, del cual hemos importado su clave pública, si marcamos la casilla <b>"sign"</b>, podemos
+    Seleccionamos un destinatario, Chini Mooc en este caso, si marcamos la casilla <b>"sign"</b>, podemos
     firmarlo y encriptarlo en la misma operación, también podemos encriptarlo con password marcando esa casilla:
 </p>
 
 <p><img src="/static/build/media/img/u1t3/crypt-file-2.png" alt="crypt-file2-gpg-suite"></p>
 
-<p>Esto nos generará un archivo <b>.gpg</b> en nuestro caso <b>secret-msn.txt.gpg</b> que podemos enviar de manera segura junto con nuestra clave pública si el
-destinatario no la tuviese:</p>
+<p>Esto nos generará un archivo <b>.gpg</b> en nuestro caso <b>secret-msn.txt.gpg</b> que enviamos a Chini Mooc, de manera segura, solo él podrá desencriptarlo con su clave privada:</p>
 
 <p>
     <a href="/static/build/file/secret-msn.txt.gpg">secret-msn.txt.gpg</a>
 </p>
+
+<p>
+    A su vez Chini Mooc encripta <b>"cypher.txt"</b> con mi clave pública, y me
+    envía el archivo <b>"cypher.txt.gpg"</b> en cual yo puedo desencriptar perfectamente:
+</p>
+
+<p><img src="/static/build/media/img/u1t3/decrypt.png" alt="decrypt"></p>
+
 
 <h3>Enviar un correo electrónico cifrado</h3>
 <p>
@@ -146,17 +160,30 @@ destinatario no la tuviese:</p>
 
 <p>
     Creamos un correo nuevo, lo podemos cifrar y firmar e incluso adjuntar nuestra clave pública, tendremos que seleccionar destinatarios de los
-    que tengamos su clave pública. Para hacer una prueba rápida, selecciono como destinatario a mi mismo, al llegar mi propio correo, se ve
-    correctamente desencriptado, como es lógico:
+    que tengamos su clave pública.
+</p>
+
+<p><img src="/static/build/media/img/u1t3/thunderbird-send.png" alt="thunderbird-send"></p>
+
+<p>
+Para hacer una prueba rápida, selecciono como destinatario a mi mismo, al llegar mi propio correo, se ve
+correctamente desencriptado y con la firma validada:
 </p>
 
 <p><img src="/static/build/media/img/u1t3/thunderbird-ok.png" alt="thunderbird-ok"></p>
 
 <p>
-    Al abrir el mismo mail, desde otro cliente de correo en otro equipo, el cual no tiene las claves importadas, no podemos verlo:
+    Al abrir el mismo mail, desde otro cliente de correo, gmail en este caso, al no tener las claves importadas, veremos el mensaje encriptado:
 </p>
 
-<p><img src="/static/build/media/img/u1t3/thunderbird-fail.png" alt="thunderbird-fail"></p>
+<p><img src="/static/build/media/img/u1t3/mail-fail.png" alt="mail-fail"></p>
+
+<p>Aprovechando que tengo la clave pública de Chini Mooc, me intercambio un par de
+correos firmados y encriptados con él:</p>
+
+<p><img src="/static/build/media/img/u1t3/send-mail.png" alt="send-mail"></p>
+
+<p><img src="/static/build/media/img/u1t3/get-mail.png" alt="get-mail"></p>
 
 <h3>Recursos</h3>
 
