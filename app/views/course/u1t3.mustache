@@ -7,12 +7,12 @@
 
 <p>
     Pretty Good Privacy (PGP), permite cifrar y firmar digitalmente el correo electrónico y diferentes tipos de archivos.
-    Vamos a encriptar un archivo y desencriptar otro que nos envíe un tercero, tambien podemos firmarlo digitalmente,
+    Vamos a encriptar un archivo y desencriptar otro que nos envíe un tercero, también podemos firmarlo digitalmente,
     esto certifica el archivo y le añade una marca de tiempo. Si fuera modificado de cualquier manera, el intento de verificar la firma fallaría.
 </p>
 
 <p>
-    En nuestro caso instalamos <b>GPG Suite</b>, diponible para OS X en <a href="https://gpgtools.org/">https://gpgtools.org/</a>:
+    En nuestro caso instalamos <b>GPG Suite</b>, disponible para OS X en <a href="https://gpgtools.org/">https://gpgtools.org/</a>:
 </p>
 
 <p><img src="/static/build/media/img/u1t3/install-gpg-suite.png" alt="install-gpg-suite"></p>
@@ -31,7 +31,7 @@
 <p><img src="/static/build/media/img/u1t3/export-public-key-gpg-suite.png" alt="export-public-key-gpg-suite"></p>
 
 <p>
-    Abriendo este archivo con cualquier editor podemos ver nuestra cláve pública que podemos
+    Abriendo este archivo con cualquier editor podemos ver nuestra clave pública que podemos
     compartir de manera global, o con quien queramos que nos envíe mensajes encriptados:
 </p>
 
@@ -88,27 +88,86 @@ HdVEXFoidoHhJcwoL6LQr9xKa1Y=
 -----END PGP PUBLIC KEY BLOCK-----
 </pre>
 
-<p><img src="/static/build/media/img/u1t3/sign.png" alt="sign"></p>
-<p><img src="/static/build/media/img/u1t3/verify-sign-fail.png" alt="verify-sign-fail"></p>
-<p><img src="/static/build/media/img/u1t3/verify-sign-ok.png" alt="verify-sign-ok"></p>
+<h3>Firmar archivos sin encriptar</h3>
 
 <p>
-   Una vez firmado selecionamos para encriptar:
+    Firmamos un archivo <b>secret-msn.txt</b>:
+</p>
+
+<p><img src="/static/build/media/img/u1t3/sign.png" alt="sign"></p>
+
+<p>
+    Esto nos genera un <b>secret-msn.txt.sig</b>, si modificamos el archivo, podemos intentar
+    verificar su firma y ver como falla:
+</p>
+
+<p><img src="/static/build/media/img/u1t3/verify-sign-fail.png" alt="verify-sign-fail"></p>
+
+<p>
+    Si no lo modificamos, el archivo pasará correctamente la verificación de la firma:
+</p>
+
+<p><img src="/static/build/media/img/u1t3/verify-sign-ok.png" alt="verify-sign-ok"></p>
+
+<h3>Encriptar un archivo</h3>
+
+<p>
+   Ahora vamos a probar encriptar el archivo:
 </p>
 
 <p><img src="/static/build/media/img/u1t3/crypt-file-1.png" alt="crypt-file1-gpg-suite"></p>
 
 <p>
-    Selecionamos un destinatario, del cual hemos importado su clave pública:
+    Seleccionamos un destinatario, del cual hemos importado su clave pública, si marcamos la casilla <b>"sign"</b>, podemos
+    firmarlo y encriptarlo en la misma operación, también podemos encriptarlo con password marcando esa casilla:
 </p>
 
 <p><img src="/static/build/media/img/u1t3/crypt-file-2.png" alt="crypt-file2-gpg-suite"></p>
 
-<p>Esto nos generará un archivo <b>.gpg</b> en nuestro caso <b>secret-msn.txt.gpg</b>:</p>
+<p>Esto nos generará un archivo <b>.gpg</b> en nuestro caso <b>secret-msn.txt.gpg</b> que podemos enviar de manera segura junto con nuestra clave pública si el
+destinatario no la tuviese:</p>
 
-<a href="/static/build/file/secret-msn.txt.gpg">secret-msn.txt.gpg</a>
+<p>
+    <a href="/static/build/file/secret-msn.txt.gpg">secret-msn.txt.gpg</a>
+</p>
 
-<p>Ahora ya se lo podemos enviar de manera segura</p>
+<h3>Enviar un correo electrónico cifrado</h3>
+<p>
+    GPG Suite viene con un plugin para el cliente de correo de OS X <b>"Mail"</b>, en mi caso uso <a href="https://www.mozilla.org/es-ES/thunderbird/">Thunderbird</a>,
+    con lo cual para cifrar un mail he tenido que descargar un complemento para él, <a href="https://addons.mozilla.org/es/thunderbird/addon/enigmail/">Enigmail</a>.
+</p>
+
+<p>
+    Una vez instalado seguimos el asistente básico de configuración, Thunderbird y Enigmail detectan automáticamente mis claves creadas y las públicas importadas cuando
+    quiero enviar un mail.
+</p>
+
+<p><img src="/static/build/media/img/u1t3/thunderbird-conf.png" alt="thunderbird-conf"></p>
+
+<p>
+    Creamos un correo nuevo, lo podemos cifrar y firmar e incluso adjuntar nuestra clave pública, tendremos que seleccionar destinatarios de los
+    que tengamos su clave pública. Para hacer una prueba rápida, selecciono como destinatario a mi mismo, al llegar mi propio correo, se ve
+    correctamente desencriptado, como es lógico:
+</p>
+
+<p><img src="/static/build/media/img/u1t3/thunderbird-ok.png" alt="thunderbird-ok"></p>
+
+<p>
+    Al abrir el mismo mail, desde otro cliente de correo en otro equipo, el cual no tiene las claves importadas, no podemos verlo:
+</p>
+
+<p><img src="/static/build/media/img/u1t3/thunderbird-fail.png" alt="thunderbird-fail"></p>
+
+<h3>Recursos</h3>
+
+<ul>
+    <li><a href="https://gpgtools.org/">GPG Suite</a></li>
+    <li><a href="https://gnupg.org/related_software/swlist.html">Herramientas GnuPG</a></li>
+    <li><a href="https://youtu.be/a99Qorfotv4"">Historia de la criptografía</a>.</li>
+    <li><a href="https://youtu.be/46Pwz2V-t8Q"">Cifrado de clave simétrica</a>.</li>
+    <li><a href="https://youtu.be/On1clzor4x4"">Cifrado de clave asimétrica o clave pública</a>.</li>
+</ul>
+
 
 {{/ content}}
 {{/ master }}
