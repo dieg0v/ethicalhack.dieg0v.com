@@ -5,7 +5,110 @@
 
 <h2>Pretty Good Privacy (PGP) - Criptografía</h2>
 
-<p>En proceso...</p>
+<p>
+    Pretty Good Privacy (PGP), permite cifrar y firmar digitalmente el correo electrónico y diferentes tipos de archivos.
+    Vamos a encriptar un archivo y desencriptar otro que nos envíe un tercero, tambien podemos firmarlo digitalmente,
+    esto certifica el archivo y le añade una marca de tiempo. Si fuera modificado de cualquier manera, el intento de verificar la firma fallaría.
+</p>
+
+<p>
+    En nuestro caso instalamos <b>GPG Suite</b>, diponible para OS X en <a href="https://gpgtools.org/">https://gpgtools.org/</a>:
+</p>
+
+<img width="800px" src="/static/build/media/img/u1t3/install-gpg-suite.png" alt="install-gpg-suite">
+
+<p>
+    Generamos nuestra primera clave GPG, en el momento de crearla, o posteriormente, podemos decirle al programa que suba nuestra clave pública a un servidor de claves para que
+    cualquier persona pueda acceder a ella:
+</p>
+
+<img width="800px" src="/static/build/media/img/u1t3/create-key-gpg-suite.png" alt="create-key-gpg-suite">
+
+<p>
+    Una vez creada podemos exportar la clave, esto nos generará un archivo <b>.asc</b>:
+</p>
+
+<img width="800px" src="/static/build/media/img/u1t3/export-public-key-gpg-suite.png" alt="export-public-key-gpg-suite">
+
+<p>
+    Abriendo este archivo con cualquier editor podemos ver nuestra cláve pública que podemos
+    compartir de manera global, o con quien queramos que nos envíe mensajes encriptados:
+</p>
+
+<pre>
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+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
+HdVEXFoidoHhJcwoL6LQr9xKa1Y=
+=Q8W1
+-----END PGP PUBLIC KEY BLOCK-----
+</pre>
+
+<img width="800px" src="/static/build/media/img/u1t3/sign.png" alt="sign">
+<img width="800px" src="/static/build/media/img/u1t3/verify-sign-fail.png" alt="verify-sign-fail">
+<img width="800px" src="/static/build/media/img/u1t3/verify-sign-ok.png" alt="verify-sign-ok">
+
+<p>
+   Una vez firmado selecionamos para encriptar:
+</p>
+
+<img width="800px" src="/static/build/media/img/u1t3/crypt-file-1.png" alt="crypt-file1-gpg-suite">
+
+<p>
+    Selecionamos un destinatario, del cual hemos importado su clave pública:
+</p>
+
+<img width="800px" src="/static/build/media/img/u1t3/crypt-file-2.png" alt="crypt-file2-gpg-suite">
+
+<p>Esto nos generará un archivo <b>.gpg</b> en nuestro caso <b>secret-msn.txt.gpg</b>:</p>
+
+<a href="/static/build/file/secret-msn.txt.gpg">secret-msn.txt.gpg</a>
+
+<p>Ahora ya se lo podemos enviar de manera segura</p>
 
 {{/ content}}
 {{/ master }}
