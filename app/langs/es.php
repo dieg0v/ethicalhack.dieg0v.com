@@ -44,6 +44,11 @@ return [
             'description' => 'Pretty Good Privacy (PGP) - Criptografía',
             'keywords' => 'pretty good privacy, pgp, criptografía, ethical, hack',
         ],
+        'u2t1' => [
+            'title' => 'Capturando tráfico con Wireshark - ethical hack',
+            'description' => 'Capturando tráfico con Wireshark',
+            'keywords' => 'capturar, tráfico, wireshark ethical, hack',
+        ]
     ],
 
     // ==================================================================

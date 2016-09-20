@@ -1,0 +1,43 @@
+{{% BLOCKS }}
+{{< master }}
+
+{{$ content}}
+
+<h2>Capturando tráfico con Wireshark</h2>
+
+<p>
+    <b>Wireshark</b> es un analizador de protocolos muy popular. Es software libre y es una herramienta fantástica para investigar qué está pasando en una red y, también, para aprender sobre protocolos de comunicaciones.
+</p>
+
+<p>
+    <a href="https://www.wireshark.org/#download">Descargamos</a> e instalamos <b>Wireshark</b> para OS X en nuestro caso.
+</p>
+
+<p><img src="/static/build/media/img/u2t1/install.png" alt="install-wireshark"></p>
+
+<h3>Protocolo inseguro - Telnet</h3>
+
+<p>Vamos a anilizar una traza ya capturada (<a href="https://wiki.wireshark.org/SampleCaptures?action=AttachFile&amp;do=get&amp;target=telnet-raw.pcap">telnet-raw.pcap</a>), disponible en el repositorio de capturas en Wireshark.</p>
+<p>La abrimos con <b>Wireshark</b>, esta traza contiene tráfico de una sesión de <b>Telnet</b> entre un cliente y un servidor:</p>
+
+<p><img src="/static/build/media/img/u2t1/open.png" alt="open-wireshark"></p>
+
+<p>Filtramos el tráfico por <b>Telnet</b>:</p>
+
+<p><img src="/static/build/media/img/u2t1/filter.png" alt="filter-wireshark"></p>
+
+<h3>SSL</h3>
+
+<h3>SSH</h3>
+
+<h3>Recursos</h3>
+
+<ul>
+    <li><a href="https://www.wireshark.org/">Wireshark</a></li>
+    <li><a href="https://www.wireshark.org/docs/wsug_html_chunked/">Wireshark User’s Guide</a></li>
+    <li><a href="https://www.wireshark.org/video/wireshark/introduction-to-wireshark/">Video: Introduction to Wireshark</a></li>
+</ul>
+
+{{/ content}}
+{{/ master }}
+
