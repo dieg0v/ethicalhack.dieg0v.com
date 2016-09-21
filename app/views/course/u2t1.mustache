@@ -26,9 +26,86 @@
 
 <p><img src="/static/build/media/img/u2t1/filter.png" alt="filter-wireshark"></p>
 
+<p>Identificamos el cliente <b>192.168.0.2</b> y el servidor <b>192.168.0.1</b>, analizando
+uno a uno los paquetes, podemos ver el envío del <b>nombre de usuario y la contraseña</b>:</p>
+
+<p>
+    Nombre de usuario: <b>fake</b><br>
+    Password: <b>user</b>
+</p>
+
+<p>Después podemos indetificar el <b>sistema operativo</b> donde se ejecuta
+el servidor Telnet, <b>OpenBSD 2.6-beta</b> en este caso:</p>
+
+<p><img src="/static/build/media/img/u2t1/so.png" alt="so-wireshark"></p>
+
+<p>Por último vemos que ejecuta varios comandos:</p>
+<ul>
+    <li><b>ls</b></li>
+    <li><b>ls -a</b></li>
+    <li><b>/sbin/ping www.yahoo.com</b></li>
+    <li>Control+C para parar el ping</li>
+    <li><b>exit</b></li>
+</ul>
+
+<p>Con la opción de follow TCP stream podemos ver lo siguiente:</p>
+<pre>
+........... ..!.."..'.....#..%..%........... ..!..".."........P. ....".....b........b....   B.
+........................"......'.....#..&..&..$..&..&..$.. .....#.....'........... .9600,9600....#.bam.zing.org:0.0....'..DISPLAY.bam.zing.org:0.0......xterm-color.............!.............."............
+OpenBSD/i386 (oof) (ttyp1)
+
+login: .."........"ffaakkee
+.
+Password:user
+.
+Last login: Thu Dec  2 21:32:59 on ttyp1 from bam.zing.org
+Warning: no Kerberos tickets issued.
+OpenBSD 2.6-beta (OOF) #4: Tue Oct 12 20:42:32 CDT 1999
+
+Welcome to OpenBSD: The proactively secure Unix-like operating system.
+
+Please use the sendbug(1) utility to report bugs in the system.
+Before reporting a bug, please try to reproduce it with the latest
+version of the code.  With bug reports, please try to ensure that
+enough information to reproduce the problem is enclosed, and if a
+known fix for it exists, include that as well.
+
+$ llss
+.
+$ llss  --aa
+.
+.         ..        .cshrc    .login    .mailrc   .profile  .rhosts
+$ //ssbbiinn//ppiinngg  wwwwww..yyaahhoooo..ccoomm
+.
+PING www.yahoo.com (204.71.200.74): 56 data bytes
+64 bytes from 204.71.200.74: icmp_seq=0 ttl=239 time=73.569 ms
+64 bytes from 204.71.200.74: icmp_seq=1 ttl=239 time=71.099 ms
+64 bytes from 204.71.200.74: icmp_seq=2 ttl=239 time=68.728 ms
+64 bytes from 204.71.200.74: icmp_seq=3 ttl=239 time=73.122 ms
+64 bytes from 204.71.200.74: icmp_seq=4 ttl=239 time=71.276 ms
+64 bytes from 204.71.200.74: icmp_seq=5 ttl=239 time=75.831 ms
+64 bytes from 204.71.200.74: icmp_seq=6 ttl=239 time=70.101 ms
+64 bytes from 204.71.200.74: icmp_seq=7 ttl=239 time=74.528 ms
+64 bytes from 204.71.200.74: icmp_seq=9 ttl=239 time=74.514 ms
+64 bytes from 204.71.200.74: icmp_seq=10 ttl=239 time=75.188 ms
+64 bytes from 204.71.200.74: icmp_seq=11 ttl=239 time=72.925 ms
+...^C
+.--- www.yahoo.com ping statistics ---
+13 packets transmitted, 11 packets received, 15% packet loss
+round-trip min/avg/max = 68.728/72.807/75.831 ms
+$ eexxiitt
+.
+</pre>
+
 <h3>SSL</h3>
 
+<p>Analizamos ahora tráfico SSL descargando esta <a href="https://wiki.wireshark.org/SampleCaptures?action=AttachFile&amp;do=get&amp;target=x509-with-logo.cap">traza</a>.</p>
+
+
 <h3>SSH</h3>
+
+<p>Descargamos <a href="https://www.dropbox.com/s/eczzwy4i6hztv71/ssh.pcap?dl=1">esta traza con tráfico SSH</a> y la abrimos con <b>Wireshark</b>.</p>
+
 
 <h3>Recursos</h3>
 
