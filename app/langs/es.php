@@ -54,6 +54,11 @@ return [
             'description' => 'Sql Injection',
             'keywords' => 'sql, injection, ethical, hack',
         ],
+        'u2t3' => [
+            'title' => 'Ética del hacker - ethical hack',
+            'description' => 'Ética del hacker',
+            'keywords' => 'ética, hacker, ethical, hack',
+        ],
     ],
 
     // ==================================================================

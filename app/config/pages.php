@@ -52,6 +52,13 @@ return [
         ],
     ],
 
+    'u2t3' => [
+        'es' => [
+            'route' => '/etica-del-hacker',
+            'view' => 'course/u2t3',
+        ],
+    ],
+
     'about' => [
         'es' => [
             'route' => '/about',
