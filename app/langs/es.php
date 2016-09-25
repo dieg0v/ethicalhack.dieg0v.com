@@ -47,8 +47,13 @@ return [
         'u2t1' => [
             'title' => 'Capturando tráfico con Wireshark - ethical hack',
             'description' => 'Capturando tráfico con Wireshark',
-            'keywords' => 'capturar, tráfico, wireshark ethical, hack',
-        ]
+            'keywords' => 'capturar, tráfico, wireshark, ethical, hack',
+        ],
+        'u2t2' => [
+            'title' => 'Sql Injection - ethical hack',
+            'description' => 'Sql Injection',
+            'keywords' => 'sql, injection, ethical, hack',
+        ],
     ],
 
     // ==================================================================

@@ -38,13 +38,19 @@ return [
         ],
     ],
 
-    'u2t3' => [
+    'u2t1' => [
         'es' => [
             'route' => '/capturando-trafico-con-wireshark',
             'view' => 'course/u2t1',
         ],
     ],
 
+    'u2t2' => [
+        'es' => [
+            'route' => '/sql-injection',
+            'view' => 'course/u2t2',
+        ],
+    ],
 
     'about' => [
         'es' => [
