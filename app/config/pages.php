@@ -59,6 +59,13 @@ return [
         ],
     ],
 
+    'u3' => [
+        'es' => [
+            'route' => '/el-reto',
+            'view' => 'course/u3',
+        ],
+    ],
+
     'about' => [
         'es' => [
             'route' => '/about',

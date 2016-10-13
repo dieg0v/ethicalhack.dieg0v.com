@@ -59,6 +59,11 @@ return [
             'description' => 'Ética del hacker',
             'keywords' => 'ética, hacker, ethical, hack',
         ],
+        'u3' => [
+            'title' => 'El reto - ethical hack',
+            'description' => 'El reto',
+            'keywords' => 'El reto, hacker, ethical, hack',
+        ],
     ],
 
     // ==================================================================
